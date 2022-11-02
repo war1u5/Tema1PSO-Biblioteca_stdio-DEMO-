@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "so_stdio.h"
 #define _DEBUG_
-#include "utils.h"
 
 #if defined(__linux__)
 #include <sys/types.h>
@@ -67,9 +66,6 @@ struct _so_file {
     long _file_pointer_pos;
 };
 
-static SO_FILE* OpenFileModeRead(const char* pathname);				// r
-static SO_FILE* OpenFileModeWrite(const char* pathname);			// w
-static SO_FILE* OpenFileModeAppend(const char* pathname);			// a
 static SO_FILE* OpenFileModeReadUpdate(const char* pathname);		// r+
 static SO_FILE* OpenFileModeWriteUpdate(const char* pathname);		// w+
 static SO_FILE* OpenFileModeAppendUpdate(const char* pathname);		// a+
@@ -79,24 +75,156 @@ static SO_FILE* OpenFileModeAppendUpdate(const char* pathname);		// a+
 SO_FILE* so_fopen(const char* pathname, const char* mode) {
 
 	SO_FILE* file = NULL;
-
+//------------------------------r---------------------------------------
 	if (strcmp(mode, "r") == 0) {
-		file = OpenFileModeRead(pathname);
+		SO_FILE* file = (SO_FILE*)malloc(sizeof(SO_FILE));
+		if (file == NULL) {
+			printf("eroare malloc\n");
+			return NULL;
+		}
+	#if defined(__linux__)
+		file->_fHandle = open(pathname, O_RDONLY);
+		if(file->_fHandle == -1) {
+			printf("open\n");
+			free(file);
+			return NULL;
+		}
+
+	#elif defined(_WIN32)
+	//todo
+
+	#endif
+		file->_canRead = SO_TRUE;
+		file->_canWrite = SO_FALSE;
+		file->_append = SO_FALSE;
+		file->_update = SO_FALSE;
 	}
+
+//------------------------------w---------------------------------------
 	else if (strcmp(mode, "w") == 0) {
-		file = OpenFileModeWrite(pathname);
+		SO_FILE* file = (SO_FILE*)malloc(sizeof(SO_FILE));
+		if (file == NULL) {
+			printf("eroare malloc\n");
+			return NULL;
+		}
+	#if defined(__linux__)
+		file->_fHandle = open(pathname, O_WRONLY | O_TRUNC | O_CREAT, 0664);
+		if(file->_fHandle == -1) {
+			printf("open\n");
+			free(file);
+			return NULL;
+		}
+	#elif defined(_WIN32)
+	//todo
+
+	#endif
+		file->_canRead = SO_FALSE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_FALSE;
+		file->_update = SO_FALSE;
 	}
+
+
+
+//------------------------------a---------------------------------------
 	else if (strcmp(mode, "a") == 0) {
-		file = OpenFileModeAppend(pathname);
+		SO_FILE* file = (SO_FILE*)malloc(sizeof(SO_FILE));
+		if (file == NULL) {
+			printf("eroare malloc\n");
+			return NULL;
+		}
+	#if defined(__linux__)
+		file->_fHandle = open(pathname, O_APPEND | O_WRONLY | O_CREAT, 0644);
+		if(file->_fHandle == -1) {
+			printf("open\n");
+			free(file);
+			return NULL;
+		}
+	#elif defined(_WIN32)
+	//todo
+
+	#endif
+		file->_canRead = SO_FALSE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_TRUE;
+		file->_update = SO_FALSE;	
 	}
+
+
+
+//------------------------------r+---------------------------------------
 	else if (strcmp(mode, "r+") == 0) {
-		file = OpenFileModeReadUpdate(pathname);
+		SO_FILE* file = (SO_FILE*)malloc(sizeof(SO_FILE));
+		if (file == NULL) {
+			printf("eroare malloc\n");
+			return NULL;
+		}
+	#if defined(__linux__)
+		file->_fHandle = open(pathname, O_RDWR);
+		if(file->_fHandle == -1) {
+			printf("open\n");
+			free(file);
+			return NULL;
+		}
+	#elif defined(_WIN32)
+	//todo
+
+	#endif
+		file->_canRead = SO_TRUE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_FALSE;
+		file->_update = SO_TRUE;	
 	}
+
+
+
+//------------------------------w+---------------------------------------
 	else if (strcmp(mode, "w+") == 0) {
-		file = OpenFileModeWriteUpdate(pathname);
+		SO_FILE* file = (SO_FILE*)malloc(sizeof(SO_FILE));
+		if (file == NULL) {
+			printf("eroare malloc\n");
+			return NULL;
+		}
+	#if defined(__linux__)
+		file->_fHandle = open(pathname, O_RDWR | O_TRUNC | O_CREAT, 0644);
+		if(file->_fHandle == -1) {
+			printf("open\n");
+			free(file);
+			return NULL;
+		}
+	#elif defined(_WIN32)
+	//todo
+
+	#endif
+		file->_canRead = SO_TRUE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_FALSE;
+		file->_update = SO_TRUE;		
 	}
+
+
+//------------------------------a+---------------------------------------
 	else if (strcmp(mode, "a+") == 0) {
-		file = OpenFileModeAppendUpdate(pathname);
+		SO_FILE* file = (SO_FILE*)malloc(sizeof(SO_FILE));
+		if (file == NULL) {
+			printf("eroare malloc\n");
+			return NULL;
+		}
+	#if defined(__linux__)
+		file->_fHandle = open(pathname, O_APPEND | O_RDWR | O_CREAT, 0644);
+		if(file->_fHandle == -1) {
+			printf("open\n");
+			free(file);
+			return NULL;
+		}
+	#elif defined(_WIN32)
+	//todo
+
+	#endif
+		file->_canRead = SO_TRUE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_TRUE;
+		file->_update = SO_TRUE;			
 	}
 
 	if (file != NULL) {
@@ -114,202 +242,5 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 		file->_file_pointer_pos = 0;	
 	}
 	return file;
-}
 
-// implementare cazuri de deschidere
-static SO_FILE* OpenFileModeRead(const char* pathname) {
-
-	SO_FILE* so_file = (SO_FILE*)malloc(sizeof(SO_FILE));
-	if (so_file == NULL) {
-
-		PRINT_MY_ERROR("malloc failed");
-		return NULL;
-	}
-
-#if defined(__linux__)
-	so_file->_fHandle = open(pathname, O_RDONLY);
-	if (so_file->_fHandle == -1) {
-		PRINT_MY_ERROR("open");
-		free(so_file);
-		return NULL;
-	}
-
-#elif defined(_WIN32)
-	//TODO
-
-#else
-#error "Unknown platform"
-#endif
-
-	so_file->_canRead = SO_TRUE;
-	so_file->_canWrite = SO_FALSE;
-	so_file->_append = SO_FALSE;
-	so_file->_update = SO_FALSE;
-
-	return so_file;
-}
-
-static SO_FILE* OpenFileModeWrite(const char* pathname) {
-
-	SO_FILE* so_file = (SO_FILE*)malloc(sizeof(SO_FILE));
-	if (so_file == NULL) {
-
-		PRINT_MY_ERROR("malloc failed");
-		return NULL;
-	}
-
-#if defined(__linux__)
-	so_file->_fHandle = open(pathname, O_WRONLY | O_TRUNC | O_CREAT, 0664);
-	if (so_file->_fHandle == -1) {
-		PRINT_MY_ERROR("open");
-		free(so_file);
-		return NULL;
-	}
-
-#elif defined(_WIN32)
-	//TODO
-
-#else
-#error "Unknown platform"
-#endif
-
-	so_file->_canRead = SO_FALSE;
-	so_file->_canWrite = SO_TRUE;
-	so_file->_append = SO_FALSE;
-	so_file->_update = SO_FALSE;
-
-	return so_file;
-}
-
-static SO_FILE* OpenFileModeAppend(const char* pathname) {
-
-	SO_FILE* so_file = (SO_FILE*)malloc(sizeof(SO_FILE));
-	if (so_file == NULL) {
-
-		PRINT_MY_ERROR("malloc failed");
-		return NULL;
-	}
-
-#if defined(__linux__)
-	so_file->_fHandle = open(pathname, O_APPEND | O_WRONLY | O_CREAT, 0644);
-	if (so_file->_fHandle == -1) {
-		PRINT_MY_ERROR("open");
-		free(so_file);
-		return NULL;
-	}
-
-#elif defined(_WIN32)
-	//TODO
-
-#else
-#error "Unknown platform"
-#endif
-
-	so_file->_canRead = SO_FALSE;
-	so_file->_canWrite = SO_TRUE;
-	so_file->_append = SO_TRUE;
-	so_file->_update = SO_FALSE;
-
-	return so_file;
-}
-
-static SO_FILE* OpenFileModeReadUpdate(const char* pathname) {
-
-	SO_FILE* so_file = (SO_FILE*)malloc(sizeof(SO_FILE));
-	if (so_file == NULL) {
-
-		PRINT_MY_ERROR("malloc failed");
-		return NULL;
-	}
-
-#if defined(__linux__)
-	so_file->_fHandle = open(pathname, O_RDWR);
-	if (so_file->_fHandle == -1) {
-		PRINT_MY_ERROR("open");
-		free(so_file);
-		return NULL;
-	}
-
-
-#elif defined(_WIN32)
-	//TODO
-
-#else
-#error "Unknown platform"
-#endif
-
-	so_file->_canRead = SO_TRUE;
-	so_file->_canWrite = SO_TRUE;
-	so_file->_append = SO_FALSE;
-	so_file->_update = SO_TRUE;
-
-	return so_file;
-}
-
-static SO_FILE* OpenFileModeWriteUpdate(const char* pathname) {
-
-	SO_FILE* so_file = (SO_FILE*)malloc(sizeof(SO_FILE));
-	if (so_file == NULL) {
-
-		PRINT_MY_ERROR("malloc failed");
-		return NULL;
-	}
-
-#if defined(__linux__)
-	so_file->_fHandle = open(pathname, O_RDWR | O_TRUNC | O_CREAT, 0644);
-	if (so_file->_fHandle == -1) {
-		PRINT_MY_ERROR("open");
-		free(so_file);
-		return NULL;
-	}
-
-
-#elif defined(_WIN32)
-	//TODO
-	}
-
-#else
-#error "Unknown platform"
-#endif
-
-	so_file->_canRead = SO_TRUE;
-	so_file->_canWrite = SO_TRUE;
-	so_file->_append = SO_FALSE;
-	so_file->_update = SO_TRUE;
-
-	return so_file;
-}
-
-static SO_FILE* OpenFileModeAppendUpdate(const char* pathname) {
-
-	SO_FILE* so_file = (SO_FILE*)malloc(sizeof(SO_FILE));
-	if (so_file == NULL) {
-
-		PRINT_MY_ERROR("malloc failed");
-		return NULL;
-	}
-
-#if defined(__linux__)
-	so_file->_fHandle = open(pathname, O_APPEND | O_RDWR | O_CREAT, 0644);
-	if (so_file->_fHandle == -1) {
-		PRINT_MY_ERROR("open");
-		free(so_file);
-		return NULL;
-	}
-
-
-#elif defined(_WIN32)
-	//TODO
-	}
-
-#else
-#error "Unknown platform"
-#endif
-
-	so_file->_canRead = SO_TRUE;
-	so_file->_canWrite = SO_TRUE;
-	so_file->_append = SO_TRUE;
-	so_file->_update = SO_TRUE;
-
-	return so_file;
 }
