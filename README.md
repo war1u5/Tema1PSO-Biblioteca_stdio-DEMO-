@@ -64,6 +64,9 @@ struct _SO_FILE {
 ```
 
 ## Surse
+* Structura program
+   * https://github.com/TritonDataCenter/syslinux/blob/master/com32/lib/fopen.c
+
 * System calls
    * https://en.wikipedia.org/wiki/System_call
    * https://wiki.mta.ro/c/3/pso/lab/02
