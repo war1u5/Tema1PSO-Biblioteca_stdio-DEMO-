@@ -14,10 +14,9 @@ _Grupa: C113D_
 Să se realizeze o implementare minimală a bibliotecii stdio, care să permită lucrul cu fișiere. Biblioteca va trebui să implementeze structura SO_FILE (similar cu FILE din biblioteca standard C), împreună cu funcțiile de citire/scriere. De asemenea, va trebui să ofere funcționalitatea de buffering. <br/>
 Rezolvarea temei va trebui să genereze o bibliotecă dinamică numită libso_stdio.so/so_stdio.dll care implementează funcțiile declarate în header-ul [so_stdio.h](https://github.com/systems-cs-pub-ro/so/blob/master/assignments/2-stdio/util/so_stdio.h).
 
-# Rezolvare
-## Elemente necesare:
-### Handle/File descriptor
-* Se construieste handle-ul/file descriptorul
+## Rezolvare
+### Elemente necesare:
+#### Handle/File descriptor
 ```c++
 //handle-ul fisierului pe care dorim sa-l deschidem are o structura anume
 //see README.md section Structura handle
@@ -66,11 +65,11 @@ struct _SO_FILE {
 
 ## Surse
 * System calls
-  * https://en.wikipedia.org/wiki/System_call
-  * https://wiki.mta.ro/c/3/pso/lab/02
-  * https://0xax.gitbooks.io/linux-insides/content/SysCall/
-  * https://www.tutorialspoint.com/system-calls-in-unix-and-windows#:~:text=System%20calls%20in%20Windows%20are,system%20using%20the%20system%20calls.
-  *  
+   * https://en.wikipedia.org/wiki/System_call
+   * https://wiki.mta.ro/c/3/pso/lab/02
+   * https://0xax.gitbooks.io/linux-insides/content/SysCall/
+   * https://www.tutorialspoint.com/system-calls-in-unix-and-windows#:~:text=System%20calls%20in%20Windows%20are,system%20using%20the%20system%20calls.
+   *  
 
 * LINUX 
   * Structura handle
