@@ -17,7 +17,6 @@ Rezolvarea temei va trebui să genereze o bibliotecă dinamică numită libso_st
 ## Rezolvare
 ### Elemente necesare:
 #### Handle/File descriptor
-* Se construieste handle-ul/file descriptorul
 ```c++
 //handle-ul fisierului pe care dorim sa-l deschidem are o structura anume
 //see README.md section Structura handle
