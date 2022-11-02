@@ -64,12 +64,15 @@ struct _SO_FILE {
 ```
 
 ## Surse
+* Structura program
+   * https://github.com/TritonDataCenter/syslinux/blob/master/com32/lib/fopen.c
+
 * System calls
    * https://en.wikipedia.org/wiki/System_call
    * https://wiki.mta.ro/c/3/pso/lab/02
    * https://0xax.gitbooks.io/linux-insides/content/SysCall/
    * https://www.tutorialspoint.com/system-calls-in-unix-and-windows#:~:text=System%20calls%20in%20Windows%20are,system%20using%20the%20system%20calls.
-   
+   *  
 
 * LINUX 
   * Structura handle
