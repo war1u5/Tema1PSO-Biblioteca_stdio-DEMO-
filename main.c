@@ -4,13 +4,31 @@
 #include "so_stdio.h"
 
 int main(){
-    SO_FILE* file = so_fopen("file.txt", "x+");
+    SO_FILE* file = so_fopen("file.txt", "a+");
     if (file == NULL) {
 		printf("so_fopen failed\n");
 		exit(0);
 	}
     else{
-        printf("succes!\n");
+        printf("so_fopen: succes!\n");
+    }
+    
+    int a = so_fclose(file);
+    printf("so_fclose nr1\n");
+    if(a==1){
+        printf("so_fclose nr1: succes!");
+    }
+    int check = so_fclose(file);
+    if (check == -1) {
+		printf("file already closed\n");
+		exit(0);
+	}
+    else if (check == 0){
+        printf("so_fclose: succes!\n");
+    }
+    else{
+        printf("so_fclose: failed!");
+        exit(0);
     }
 
     return 0;
