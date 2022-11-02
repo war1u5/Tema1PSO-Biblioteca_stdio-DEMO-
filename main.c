@@ -4,12 +4,14 @@
 #include "so_stdio.h"
 
 int main(){
-    SO_FILE* file = so_fopen("file.txt", "a+");
+    SO_FILE* file = so_fopen("file.txt", "a");
     if (file == NULL) {
-		printf("so_fopen failed");
+		printf("so_fopen failed\n");
 		exit(0);
 	}
-
+    else{
+        printf("succes!\n");
+    }
 
     return 0;
 }

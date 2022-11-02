@@ -54,7 +54,7 @@ struct _so_file {
     char* _buffer_base;       // Start of reserve area
     char* _buffer_end;        // End of reserve area
 
-    //flags
+    //flagsso_fopen failed
     int _canRead;             // False when open to write
     int _canWrite;            // False when open to read
     int _update;              // True when open in update mode
@@ -65,12 +65,6 @@ struct _so_file {
 
     long _file_pointer_pos;
 };
-
-static SO_FILE* OpenFileModeReadUpdate(const char* pathname);		// r+
-static SO_FILE* OpenFileModeWriteUpdate(const char* pathname);		// w+
-static SO_FILE* OpenFileModeAppendUpdate(const char* pathname);		// a+
-
-
 
 SO_FILE* so_fopen(const char* pathname, const char* mode) {
 
@@ -98,6 +92,8 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 		file->_canWrite = SO_FALSE;
 		file->_append = SO_FALSE;
 		file->_update = SO_FALSE;
+
+		return file;
 	}
 
 //------------------------------w---------------------------------------
@@ -122,6 +118,8 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 		file->_canWrite = SO_TRUE;
 		file->_append = SO_FALSE;
 		file->_update = SO_FALSE;
+
+		return file;
 	}
 
 
@@ -147,7 +145,9 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 		file->_canRead = SO_FALSE;
 		file->_canWrite = SO_TRUE;
 		file->_append = SO_TRUE;
-		file->_update = SO_FALSE;	
+		file->_update = SO_FALSE;
+
+		return file;	
 	}
 
 
@@ -174,6 +174,8 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 		file->_canWrite = SO_TRUE;
 		file->_append = SO_FALSE;
 		file->_update = SO_TRUE;	
+
+		return file;
 	}
 
 
@@ -199,7 +201,9 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 		file->_canRead = SO_TRUE;
 		file->_canWrite = SO_TRUE;
 		file->_append = SO_FALSE;
-		file->_update = SO_TRUE;		
+		file->_update = SO_TRUE;
+
+		return file;		
 	}
 
 
@@ -224,7 +228,9 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 		file->_canRead = SO_TRUE;
 		file->_canWrite = SO_TRUE;
 		file->_append = SO_TRUE;
-		file->_update = SO_TRUE;			
+		file->_update = SO_TRUE;	
+
+		return file;		
 	}
 
 	if (file != NULL) {
@@ -241,6 +247,6 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 
 		file->_file_pointer_pos = 0;	
 	}
-	return file;
 
+	return file;
 }
