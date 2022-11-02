@@ -72,64 +72,59 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 	int fd;
 	SO_FILE* file = NULL;
 
-	while(*mode){
-		switch (*mode)
-		{
-		case 'r':
-			file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
-			flags = O_RDONLY;
-			file->_canRead = SO_TRUE;
-			file->_canWrite = SO_FALSE;
-			file->_append = SO_FALSE;
-			file->_update = SO_FALSE;
-			break;
-		case 'w':
-			file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
-			flags = O_WRONLY | O_TRUNC | O_CREAT;
-			file->_canRead = SO_FALSE;
-			file->_canWrite = SO_TRUE;
-			file->_append = SO_FALSE;
-			file->_update = SO_FALSE;
-			break;
-		case 'a':
-			file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
-			flags = O_APPEND | O_WRONLY | O_CREAT;
-			file->_canRead = SO_FALSE;
-			file->_canWrite = SO_TRUE;
-			file->_append = SO_TRUE;
-			file->_update = SO_FALSE;
-			break;
-		case 'r+':
-			file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
-			flags = O_RDWR;
-			file->_canRead = SO_TRUE;
-			file->_canWrite = SO_TRUE;
-			file->_append = SO_FALSE;
-			file->_update = SO_TRUE;
-			break;
-		case 'w+':
-			file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
-			flags = O_RDWR | O_TRUNC | O_CREAT;
-			file->_canRead = SO_TRUE;
-			file->_canWrite = SO_TRUE;
-			file->_append = SO_FALSE;
-			file->_update = SO_TRUE;
-			break;
-		case 'a+':
-			file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
-			flags = O_APPEND | O_RDWR | O_CREAT;
-			file->_canRead = SO_TRUE;
-			file->_canWrite = SO_TRUE;
-			file->_append = SO_TRUE;
-			file->_update = SO_TRUE;
-		break; 
-		default:
-			printf("no such mode\n");
-			return NULL;
-			break;
-		}
-		mode++;
+	if(strcmp(mode,"r")==0){
+		file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
+		flags = O_RDONLY;
+		file->_canRead = SO_TRUE;
+		file->_canWrite = SO_FALSE;
+		file->_append = SO_FALSE;
+		file->_update = SO_FALSE;
 	}
+	else if(strcmp(mode,"w")==0){
+		file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
+		flags = O_WRONLY | O_TRUNC | O_CREAT;
+		file->_canRead = SO_FALSE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_FALSE;
+		file->_update = SO_FALSE;
+	}
+	else if(strcmp(mode,"a")==0){
+		file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
+		flags = O_APPEND | O_WRONLY | O_CREAT;
+		file->_canRead = SO_FALSE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_TRUE;
+		file->_update = SO_FALSE;
+	}
+	else if(strcmp(mode,"r+")==0){
+		file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
+		flags = O_RDWR;
+		file->_canRead = SO_TRUE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_FALSE;
+		file->_update = SO_TRUE;
+	}
+	else if(strcmp(mode,"w+")==0){
+		file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
+		flags = O_RDWR | O_TRUNC | O_CREAT;
+		file->_canRead = SO_TRUE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_FALSE;
+		file->_update = SO_TRUE;
+	}
+	else if(strcmp(mode,"a+")==0){
+		file = (SO_FILE*)malloc(sizeof(SO_FILE)); 
+		flags = O_APPEND | O_RDWR | O_CREAT;
+		file->_canRead = SO_TRUE;
+		file->_canWrite = SO_TRUE;
+		file->_append = SO_TRUE;
+		file->_update = SO_TRUE;
+	}
+	else{
+		printf("NO SUCH MODE!\n");
+		return NULL;
+	}
+
 
 	#if defined(__linux__)
 		file->_fHandle = open(pathname, flags, 0644);
