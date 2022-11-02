@@ -4,7 +4,7 @@
 #include "so_stdio.h"
 
 int main(){
-    SO_FILE* file = so_fopen("file.txt", "a+");
+    SO_FILE* file = so_fopen("file.txt", "x+");
     if (file == NULL) {
 		printf("so_fopen failed\n");
 		exit(0);
