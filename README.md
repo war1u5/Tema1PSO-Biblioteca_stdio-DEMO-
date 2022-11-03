@@ -16,11 +16,19 @@ Rezolvarea temei va trebui să genereze o bibliotecă dinamică numită libso_st
 
 ## Rezolvare
 ### Elemente necesare:
-#### Handle/File descriptor
+#### so_handle.h
+Contine macro-uri, handle/file descriptor, structura _so_file<br/>
 ```c++
+//definire valori true/false
+#define SO_TRUE 1
+#define SO_FALSE 0
+
+//definire buffer
+#define SO_BUFFER_SIZE 4096
+
 //handle-ul fisierului pe care dorim sa-l deschidem are o structura anume
 //see README.md section Structura handle
-struct _SO_FILE {
+struct _so_file {
 
 #if defined(__linux__)
     int _fHandle;
@@ -47,7 +55,7 @@ struct _SO_FILE {
     char* _buffer_base;       // Start of reserve area
     char* _buffer_end;        // End of reserve area
 
-    //flags
+    //flagsso_fopen failed
     int _canRead;             // False when open to write
     int _canWrite;            // False when open to read
     int _update;              // True when open in update mode
@@ -55,11 +63,9 @@ struct _SO_FILE {
     
     int _feof;                // verifica daca caller-ul a incercat sa citeasca/scrie dincolo de end of file
     int _ferror;              // Test for read and write errors
+    int _errno;               // test pentru so_fileno()
 
-    long _file_pointer_pos;
-
-    int ignore;
-
+    long _file_pointer_pos;   
 };
 ```
 
