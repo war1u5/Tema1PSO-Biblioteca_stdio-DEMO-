@@ -4,7 +4,17 @@
 #include "so_stdio.h"
 
 int main(){
-    SO_FILE* file = so_fopen("file.txt", "a+");
+//------------------test so_fopen()-------------------
+    SO_FILE* file = so_fopen("file.txt", "c+");
+//------------------test so_fileno()-------------------
+    int file_desc = so_fileno(file);
+    if(file_desc==-1){
+        printf("invalid stream!\n");
+    }
+    else{
+        printf("file descriptor: %d\n", file_desc);
+    }
+    printf("check\n");
     if (file == NULL) {
 		printf("so_fopen failed\n");
 		exit(0);
@@ -12,7 +22,8 @@ int main(){
     else{
         printf("so_fopen: success!\n");
     }
-    
+
+//------------------test so_fclose()-------------------
     int a = so_fclose(file);
     printf("so_fclose nr1\n");
     if(a==1){

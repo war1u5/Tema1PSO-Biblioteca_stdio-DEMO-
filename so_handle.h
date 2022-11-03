@@ -42,6 +42,8 @@ struct _so_file {
     
     int _feof;                // verifica daca caller-ul a incercat sa citeasca/scrie dincolo de end of file
     int _ferror;              // Test for read and write errors
+    int _errno;               // test pentru so_fileno()
 
     long _file_pointer_pos;
+    
 };

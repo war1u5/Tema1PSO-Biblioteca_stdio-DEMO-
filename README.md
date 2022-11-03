@@ -80,13 +80,20 @@ struct _SO_FILE {
     * https://en.wikipedia.org/wiki/File_descriptor
     * [feof() flag](https://stackoverflow.com/questions/12337614/how-feof-works-in-c)
     * [ferror() flag](https://www.ibm.com/docs/en/zos/2.3.0?topic=functions-ferror-test-read-write-errors)
+    *
 
-  * open() syscall
+  * so_fopen() -> open() syscall
     * https://0xax.gitbooks.io/linux-insides/content/SysCall/linux-syscall-5.html
     * https://github.com/torvalds/linux/blob/master/fs/open.c
-    * 
+    * https://www.thinkage.ca/gcos/expl/c/lib/open.html
+    *
 
-  * close() syscall
+  * so_fclose() -> close() syscall
     * http://codewiki.wikidot.com/c:system-calls:close
     * 
+
+  * so_fileno()
+    * fileno - map a stream pointer to a file descriptor
+    * https://pubs.opengroup.org/onlinepubs/009604599/functions/fileno.html
+    *
 
