@@ -3,22 +3,6 @@
 #include "so_handle.h"
 #define _DEBUG_
 
-#if defined(__linux__)
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-
-#elif defined(_WIN32)
-#include <fileapi.h>
-
-#else
-#error "Unknown platform"
-#endif
-
-#include <string.h>
-
 SO_FILE* so_fopen(const char* pathname, const char* mode) {
 	int flags = -1;//O_RDONLY;
 	int plus = 0;

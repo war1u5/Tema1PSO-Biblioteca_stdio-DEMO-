@@ -4,23 +4,6 @@
 #define _DEBUG_
 
 #if defined(__linux__)
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-
-#elif defined(_WIN32)
-#include <fileapi.h>
-
-#else
-#error "Unknown platform"
-#endif
-
-#include <string.h>
-
-
-#if defined(__linux__)
 int so_fileno(SO_FILE* stream) {
     if (stream == NULL){
         printf("invalid stream!\n");

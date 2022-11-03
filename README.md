@@ -63,9 +63,12 @@ struct _so_file {
     
     int _feof;                // verifica daca caller-ul a incercat sa citeasca/scrie dincolo de end of file
     int _ferror;              // Test for read and write errors
-    int _errno;               // test pentru so_fileno()
+    int _errno;               // test pentru so_fileno(), so_fflusk()...
 
-    long _file_pointer_pos;   
+    long _file_pointer_pos;
+    unsigned int _buffer_pointer_pos;
+    unsigned char _buffer[SO_BUFFER_SIZE];
+    
 };
 ```
 
@@ -101,5 +104,9 @@ struct _so_file {
   * so_fileno()
     * fileno - map a stream pointer to a file descriptor
     * https://pubs.opengroup.org/onlinepubs/009604599/functions/fileno.html
-    *
+
+  * so_fflush()
+    * fflush() is typically used for output stream only. Its purpose is to clear (or flush) the output buffer and move the buffered data to console (in case of stdout) or disk (in case of file output stream)
+    * https://www.geeksforgeeks.org/use-fflushstdin-c/
+    * 
 

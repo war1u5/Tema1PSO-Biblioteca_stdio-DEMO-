@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 #include "so_stdio.h"
+#include "so_handle.h"
 
 int main(){
 //------------------test so_fopen()-------------------
-    SO_FILE* file = so_fopen("file.txt", "b+");
+    SO_FILE* file = so_fopen("file.txt", "r+");
 //------------------test so_fileno()-------------------
     int file_desc = so_fileno(file);
     if(file_desc==-1){
@@ -26,11 +27,11 @@ int main(){
 //------------------test so_fclose()-------------------
     int a = so_fclose(file);
     printf("so_fclose nr1\n");
-    if(a==1){
-        printf("so_fclose nr1: success!");
+    if(!(a<0)){
+        printf("so_fclose nr1: success!\n");
     }
     int check = so_fclose(file);
-    if (check == SO_EOF) {
+    if (check < 0) {
 		printf("file already closed\n");
 		exit(0);
 	}
