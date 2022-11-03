@@ -30,7 +30,7 @@ int main(){
         printf("so_fclose nr1: success!");
     }
     int check = so_fclose(file);
-    if (check == -1) {
+    if (check == SO_EOF) {
 		printf("file already closed\n");
 		exit(0);
 	}

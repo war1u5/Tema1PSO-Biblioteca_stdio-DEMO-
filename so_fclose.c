@@ -22,7 +22,7 @@
 int so_fclose(SO_FILE* stream){
     if(stream->_fHandle == NULL){
         printf("deja inchis\n");
-        return -1; //error
+        return SO_EOF; //error
     }
 
     free(stream->_buffer_base); //folosim free() pt ca am utilizat malloc()
