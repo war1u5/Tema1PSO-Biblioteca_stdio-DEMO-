@@ -1,3 +1,10 @@
+//definire valori true/false
+#define SO_TRUE 1
+#define SO_FALSE 0
+
+//definire buffer
+#define SO_BUFFER_SIZE 4096
+
 //handle-ul fisierului pe care dorim sa-l deschidem are o structura anume
 //see README.md section Structura handle
 struct _so_file {

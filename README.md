@@ -72,7 +72,7 @@ struct _SO_FILE {
    * https://wiki.mta.ro/c/3/pso/lab/02
    * https://0xax.gitbooks.io/linux-insides/content/SysCall/
    * https://www.tutorialspoint.com/system-calls-in-unix-and-windows#:~:text=System%20calls%20in%20Windows%20are,system%20using%20the%20system%20calls.
-   *  
+   * https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/
 
 * LINUX 
   * Structura handle
@@ -84,4 +84,9 @@ struct _SO_FILE {
   * open() syscall
     * https://0xax.gitbooks.io/linux-insides/content/SysCall/linux-syscall-5.html
     * https://github.com/torvalds/linux/blob/master/fs/open.c
+    * 
+
+  * close() syscall
+    * http://codewiki.wikidot.com/c:system-calls:close
+    * 
 

@@ -10,13 +10,13 @@ int main(){
 		exit(0);
 	}
     else{
-        printf("so_fopen: succes!\n");
+        printf("so_fopen: success!\n");
     }
     
     int a = so_fclose(file);
     printf("so_fclose nr1\n");
     if(a==1){
-        printf("so_fclose nr1: succes!");
+        printf("so_fclose nr1: success!");
     }
     int check = so_fclose(file);
     if (check == -1) {
@@ -24,7 +24,7 @@ int main(){
 		exit(0);
 	}
     else if (check == 0){
-        printf("so_fclose: succes!\n");
+        printf("so_fclose: success!\n");
     }
     else{
         printf("so_fclose: failed!");

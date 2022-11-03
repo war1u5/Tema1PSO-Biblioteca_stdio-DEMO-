@@ -19,17 +19,10 @@
 
 #include <string.h>
 
-//definire valori true/false
-#define SO_TRUE 1
-#define SO_FALSE 0
-
-//definire buffer
-#define SO_BUFFER_SIZE 4096
-
 int so_fclose(SO_FILE* stream){
     if(stream->_fHandle == NULL){
         printf("deja inchis\n");
-        return -1;
+        return -1; //error
     }
 
     free(stream->_buffer_base); //folosim free() pt ca am utilizat malloc()
@@ -47,5 +40,5 @@ int so_fclose(SO_FILE* stream){
 	free(stream);
 	stream = NULL;
 
-	return 0;
+	return 0; //success
 }

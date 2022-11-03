@@ -19,13 +19,6 @@
 
 #include <string.h>
 
-//definire valori true/false
-#define SO_TRUE 1
-#define SO_FALSE 0
-
-//definire buffer
-#define SO_BUFFER_SIZE 4096
-
 SO_FILE* so_fopen(const char* pathname, const char* mode) {
 	int flags = -1;//O_RDONLY;
 	int plus = 0;
