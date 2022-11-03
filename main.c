@@ -11,10 +11,13 @@ int main(){
     if(file_desc==-1){
         printf("invalid stream!\n");
     }
+    else if(file_desc > 1024){
+        printf("invalid stream!\n");
+    }
     else{
         printf("file descriptor: %d\n", file_desc);
     }
-    printf("check\n");
+
     if (file == NULL) {
 		printf("so_fopen failed\n");
 		exit(0);

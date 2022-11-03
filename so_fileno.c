@@ -24,7 +24,7 @@
 int so_fileno(SO_FILE* stream) {
     if (stream == NULL){
         printf("invalid stream!\n");
-        stream->_errno = SO_TRUE;
+        //stream->_errno = SO_TRUE;
         return -1;
     }
 

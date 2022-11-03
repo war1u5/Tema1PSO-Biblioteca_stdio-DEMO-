@@ -75,6 +75,7 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 	}
 	else{
 		printf("NO SUCH MODE!\n");
+		//file->_errno = SO_TRUE;
 		return NULL;
 	}
 
