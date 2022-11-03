@@ -5,17 +5,14 @@
 
 int main(){
 //------------------test so_fopen()-------------------
-    SO_FILE* file = so_fopen("file.txt", "c+");
+    SO_FILE* file = so_fopen("file.txt", "b+");
 //------------------test so_fileno()-------------------
     int file_desc = so_fileno(file);
     if(file_desc==-1){
         printf("invalid stream!\n");
     }
-    else if(file_desc > 1024){
-        printf("invalid stream!\n");
-    }
     else{
-        printf("file descriptor: %d\n", file_desc);
+        printf("so_fileno: success!\nfile descriptor: %d\n", file_desc);
     }
 
     if (file == NULL) {
@@ -44,6 +41,6 @@ int main(){
         printf("so_fclose: failed!");
         exit(0);
     }
-
+    
     return 0;
 }
