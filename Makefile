@@ -4,7 +4,7 @@ main: main.c libso_stdio.so path
 path:
 	export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
 	
-libso_stdio.so: so_fopen.c so_fclose.c so_fileno.c so_fflush.c
+libso_stdio.so: so_fopen.c so_fclose.c so_fileno.c so_fflush.c so_feof.c so_ferror.c so_ftell.c
 	gcc -g -fPIC $? -shared -o libso_stdio.so
 
 clean:

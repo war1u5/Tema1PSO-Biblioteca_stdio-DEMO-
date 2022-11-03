@@ -22,6 +22,10 @@ int main(){
 	}
     else{
         printf("so_fopen: success!\n");
+        int feof = so_feof(file);
+        printf("feof: %d\n", feof);
+        int pos = so_ftell(file);
+        printf("pos cursor: %d\n", pos);
     }
 
 //------------------test so_fclose()-------------------
