@@ -3,6 +3,10 @@
 #include "so_handle.h"
 #define _DEBUG_
 
-int so_feof(SO_FILE* stream) {
-	return stream->_feof;
+int so_fputc(int c, SO_FILE* stream) {
+    //todo
+    
+    
+
+
 }

@@ -8,6 +8,9 @@ int so_fclose(SO_FILE* stream){
     stream->_read_ptr = NULL;
     stream->_write_ptr = NULL;
     stream->_buffer_end = NULL;
+    stream->_feof = SO_FALSE;
+    stream->_ferror = SO_FALSE;
+    stream->_errno = SO_FALSE;
 
     #if defined(__linux__)
 	int cl = close(stream->_fHandle);

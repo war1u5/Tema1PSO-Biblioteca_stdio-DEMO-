@@ -105,5 +105,3 @@ struct _so_file {
   * so_fflush()
     * fflush() is typically used for output stream only. Its purpose is to clear (or flush) the output buffer and move the buffered data to console (in case of stdout) or disk (in case of file output stream)
     * https://www.geeksforgeeks.org/use-fflushstdin-c/
-    * 
-

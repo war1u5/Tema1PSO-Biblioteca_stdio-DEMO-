@@ -7,6 +7,24 @@
 int main(){
 //------------------test so_fopen()-------------------
     SO_FILE* file = so_fopen("file.txt", "r+");
+    while (!file->_feof){
+        int readChars = so_fgetc(file);
+        char litera = readChars;
+        printf("%c", litera);
+    }
+    printf("\n");
+
+    int readChars = so_fgetc(file);
+    if(readChars == SO_EOF){
+        printf("so_fgetc: fisier deschis pt scriere\n");
+    }
+    else if(file->_feof == 1){
+        printf("s-a ajuns la finalul fisierului!\n");
+    }
+    else{
+        printf("caracter: %c\n", (char)readChars);
+    }
+
 //------------------test so_fileno()-------------------
     int file_desc = so_fileno(file);
     if(file_desc==-1){
@@ -30,6 +48,9 @@ int main(){
 
 //------------------test so_fclose()-------------------
     int a = so_fclose(file);
+    if(file->_feof == 1){
+        printf("s-a ajuns la finalul fisierului!\n");
+    }
     printf("so_fclose nr1\n");
     if(!(a<0)){
         printf("so_fclose nr1: success!\n");
