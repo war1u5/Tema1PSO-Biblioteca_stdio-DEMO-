@@ -73,9 +73,6 @@ struct _so_file {
 ```
 
 ## Surse
-* Structura program
-   * https://github.com/TritonDataCenter/syslinux/blob/master/com32/lib/fopen.c
-
 * System calls
    * https://en.wikipedia.org/wiki/System_call
    * https://wiki.mta.ro/c/3/pso/lab/02
@@ -95,7 +92,7 @@ struct _so_file {
     * https://0xax.gitbooks.io/linux-insides/content/SysCall/linux-syscall-5.html
     * https://github.com/torvalds/linux/blob/master/fs/open.c
     * https://www.thinkage.ca/gcos/expl/c/lib/open.html
-    *
+    * https://github.com/TritonDataCenter/syslinux/blob/master/com32/lib/fopen.c
 
   * so_fclose() -> close() syscall
     * http://codewiki.wikidot.com/c:system-calls:close
