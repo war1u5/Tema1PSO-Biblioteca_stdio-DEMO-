@@ -19,6 +19,7 @@ int so_fclose(SO_FILE* stream){
 	//todo
     #endif
 
+    so_fflush(stream);
 	stream = NULL;
 
 	return cl; //success

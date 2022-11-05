@@ -7,6 +7,7 @@
 int main(){
 //------------------test so_fopen()-------------------
     SO_FILE* file = so_fopen("file.txt", "r+");
+    printf("so_fgetc in while: ");
     while (!file->_feof){
         int readChars = so_fgetc(file);
         char litera = readChars;
@@ -19,16 +20,16 @@ int main(){
         printf("so_fgetc: fisier deschis pt scriere\n");
     }
     else if(file->_feof == 1){
-        printf("s-a ajuns la finalul fisierului!\n");
+        printf("feof: s-a ajuns la finalul fisierului!\n");
     }
     else{
-        printf("caracter: %c\n", (char)readChars);
+        printf("so_fgetc: caracter: %c\n", (char)readChars);
     }
 
 //------------------test so_fileno()-------------------
     int file_desc = so_fileno(file);
     if(file_desc==-1){
-        printf("invalid stream!\n");
+        printf("so_fileno: invalid stream!\n");
     }
     else{
         printf("so_fileno: success!\nfile descriptor: %d\n", file_desc);
@@ -41,15 +42,15 @@ int main(){
     else{
         printf("so_fopen: success!\n");
         int feof = so_feof(file);
-        printf("feof: %d\n", feof);
+        printf("so_feof: feof: %d\n", feof);
         int pos = so_ftell(file);
-        printf("pos cursor: %d\n", pos);
+        printf("so_ftell: pos cursor: %d\n", pos);
     }
 
 //------------------test so_fclose()-------------------
     int a = so_fclose(file);
     if(file->_feof == 1){
-        printf("s-a ajuns la finalul fisierului!\n");
+        printf("feof: s-a ajuns la finalul fisierului!\n");
     }
     printf("so_fclose nr1\n");
     if(!(a<0)){
@@ -57,8 +58,8 @@ int main(){
     }
     int check = so_fclose(file);
     if (check < 0) {
-		printf("file already closed\n");
-		exit(0);
+		printf("so_fclose: file already closed\n");
+		//exit(0);
 	}
     else if (check == 0){
         printf("so_fclose: success!\n");
@@ -68,5 +69,10 @@ int main(){
         exit(0);
     }
     
+    SO_FILE* file1 = so_fopen("file.txt", "r+");
+    char c[] = "Nice!"; 
+    so_fread(file->_buffer, strlen(c)+1, 1, file1);
+    printf("so_fread: %s\n", file1->_buffer);
+
     return 0;
 }
