@@ -40,12 +40,10 @@ struct _so_file {
     //cursor pt citire
     char* _read_ptr;          // Current read pointer (in cadrul buffer-ului intern)
     char* _read_ptr_end;      // End of get area (buffer intern)
-    //char* _read_ptr_base;     // Start of putback+get area
 
     //cursor pt scriere
     char* _write_ptr;         // Current put pointer
     char* _write_ptr_end;     // End of put area
-    //char* _write_ptr_base;    // Start of put area
 
     //reserved area pointers
     char* _buffer_base;       // Start of reserve area
@@ -61,7 +59,7 @@ struct _so_file {
     int _ferror;              // Test for read and write errors
     int _errno;               // test pentru so_fileno(), so_fflush()...
 
-    long _file_pointer_pos;
+    unsigned int _file_pointer_pos;
     unsigned int _buffer_pointer_pos;
     unsigned char _buffer[SO_BUFFER_SIZE];
     int readChars;
