@@ -70,14 +70,14 @@ struct _so_file {
 ```
 
 ## Surse
-* System calls
+### System calls
    * https://en.wikipedia.org/wiki/System_call
    * https://wiki.mta.ro/c/3/pso/lab/02
    * https://0xax.gitbooks.io/linux-insides/content/SysCall/
    * https://www.tutorialspoint.com/system-calls-in-unix-and-windows#:~:text=System%20calls%20in%20Windows%20are,system%20using%20the%20system%20calls.
    * https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/
 
-* LINUX 
+### LINUX 
   * Structura handle
     * https://stackoverflow.com/questions/33536061/file-descriptors-and-file-handles-and-c#:~:text=File%20handle%20is%20a%20type,is%20the%20file%20descriptor)%3F
     * https://en.wikipedia.org/wiki/File_descriptor
@@ -108,3 +108,6 @@ struct _so_file {
   * so_fwrite()
     * https://chromium.googlesource.com/chromiumos/third_party/glibc/+/cvs/libc-970720/stdio/fwrite.c
     * 
+
+### WINDOWS
+  * https://www.cs.rpi.edu/academics/courses/fall01/os/
