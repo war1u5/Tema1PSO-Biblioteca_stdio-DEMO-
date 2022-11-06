@@ -49,9 +49,11 @@ int so_fflush(SO_FILE* stream){
 
     stream->_write_ptr = stream->_buffer_base;
     stream->_write_ptr_end = stream->_buffer_end;
+    stream->_buffer_pointer_pos = stream->_buffer_base;
 
     stream->_read_ptr = stream->_buffer_base;
     stream->_read_ptr_end = stream->_read_ptr;
+    stream->_buffer_pointer_pos = stream->_buffer_base;
 
     return 0;
 }

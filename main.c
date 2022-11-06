@@ -65,7 +65,7 @@ int main(){
         printf("so_fclose: success!\n");
     }
     else{
-        printf("so_fclose: failed!");
+        printf("so_fclose: failed!\n");
         exit(0);
     }
     
@@ -73,6 +73,15 @@ int main(){
     char c[] = "Nice!"; 
     so_fread(file->_buffer, strlen(c)+1, 1, file1);
     printf("so_fread: %s\n", file1->_buffer);
+
+    int var = so_fclose(file1);
+    if(var==0){
+        printf("so_fclose(file1): success!\n");
+    }
+
+    SO_FILE* file2 = so_fopen("file.txt", "w");
+    char text[] = "!2";
+    int b = so_fwrite(text, 1, strlen(text), file2);
 
     return 0;
 }
