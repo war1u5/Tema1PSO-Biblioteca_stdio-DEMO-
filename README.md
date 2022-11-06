@@ -40,19 +40,6 @@ struct _so_file {
 
 #endif
 
-    //cursor pt citire
-    char* _read_ptr;          // Current read pointer (in cadrul buffer-ului intern)
-    char* _read_ptr_end;      // End of get area (buffer intern)
-
-    //cursor pt scriere
-    char* _write_ptr;         // Current put pointer
-    char* _write_ptr_end;     // End of put area
-
-    //reserved area pointers
-    char* _buffer_base;       // Start of reserve area
-    char* _buffer_end;        // End of reserve area
-
-    //flagsso_fopen failed
     int _canRead;            // False when open to write
     int _canWrite;            // False when open to read
     int _update;              // True when open in update mode
@@ -66,6 +53,7 @@ struct _so_file {
     unsigned int _buffer_pointer_pos;
     unsigned char _buffer[SO_BUFFER_SIZE];
     int readChars;
+    int writeChars;
 };
 ```
 
