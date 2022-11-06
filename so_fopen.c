@@ -72,18 +72,12 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 	#endif
 
 	if (file != NULL) {
-		file->_buffer_base = (char*)malloc(sizeof(char) * SO_BUFFER_SIZE);
-		file->_buffer_end = file->_buffer_base + SO_BUFFER_SIZE;
-
-		file->_read_ptr = file->_buffer_base;
-		file->_read_ptr_end = file->_read_ptr;
-
-		file->_write_ptr = file->_buffer_base;
-		file->_write_ptr_end = file->_buffer_end;
-
+		memset(file->_buffer, 0, sizeof(file->_buffer));
 		file->_feof = SO_FALSE;
-
+		file->_errno = SO_FALSE;
+		file->_ferror = SO_FALSE;
 		file->_file_pointer_pos = 0;	
+		file->writeChars = 0;
 	}
 
 	return file;

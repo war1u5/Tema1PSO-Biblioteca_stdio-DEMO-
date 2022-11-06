@@ -4,21 +4,12 @@
 #define _DEBUG_
 
 int so_fseek(SO_FILE* stream, long offset, int whence) {
-    if (stream->_canRead == 0){
-        so_fflush(stream);
-    }
-    else{
-        stream->_buffer_pointer_pos = 0;
-        stream->_feof = 0;
-        memset(stream->_buffer, 0, SO_BUFFER_SIZE);
-        return 0;
-    }
+    int ls = lseek(stream->_fHandle, offset, whence);
+    stream->_file_pointer_pos = ls;
 
-    if(lseek(stream->_fHandle, offset, whence) == -1){
-        stream->_ferror = 1;
-        stream->_errno = 1;
+    if(ls<0){
         return SO_EOF;
     }
 
-    return 0;
+    return ls;
 }

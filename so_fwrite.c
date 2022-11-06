@@ -12,7 +12,7 @@ size_t so_fwrite(const void* ptr, size_t size, size_t nmemb, SO_FILE* stream) {
     source = (unsigned char*) ptr;
 
     for(int i = 0; i<number_of_chars; i++){
-        chr = so_fputc(source[i], stream);
+        chr = so_fputc(*(char*)(ptr+i), stream);
 
         if(chr == SO_EOF){
             return chars_actually_written;

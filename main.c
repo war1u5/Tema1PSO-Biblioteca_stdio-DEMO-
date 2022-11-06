@@ -92,6 +92,8 @@ int main(){
     printf("file2 open\n");
     int chr = 65;
     so_fputc(chr, file2);
+    
+    int close = so_fclose(file2);
 
     so_fwrite;
 
