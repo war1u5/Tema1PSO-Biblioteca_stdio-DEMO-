@@ -16,6 +16,7 @@ int so_fseek(SO_FILE* stream, long offset, int whence) {
 
     if(lseek(stream->_fHandle, offset, whence) == -1){
         stream->_ferror = 1;
+        stream->_errno = 1;
         return SO_EOF;
     }
 

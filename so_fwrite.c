@@ -4,9 +4,9 @@
 #define _DEBUG_
 
 size_t so_fwrite(const void* ptr, size_t size, size_t nmemb, SO_FILE* stream) {
-    unsigned int number_of_chars = 0;           //cate caract vrem sa scriem
-    unsigned char chr;                          //the char itself
-    unsigned int chars_actually_written = 0;    //cat caract am scris de fapt
+    unsigned int number_of_chars = 0;               //cate caract vrem sa scriem
+    unsigned char chr;                              //the char itself
+    unsigned int chars_actually_written = 0;        //cate caract am scris de fapt
     unsigned char *source;
     number_of_chars = (unsigned int)(size*nmemb);
     source = (unsigned char*) ptr;

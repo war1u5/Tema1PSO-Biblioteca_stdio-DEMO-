@@ -4,7 +4,7 @@
 #define _DEBUG_
 
 int so_fgetc(SO_FILE* stream){
-    int readChars;
+    int readChars =0;
 
     if(stream->_canRead==SO_FALSE){
         return SO_EOF;

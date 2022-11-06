@@ -29,6 +29,8 @@ int so_fputc(int c, SO_FILE* stream) {
     stream->_file_pointer_pos++;
     stream->_buffer[stream->_buffer_pointer_pos] = (char) c;
     stream->_buffer_pointer_pos++;
+    write(stream->_fHandle, &c, sizeof(c));
+    
 
     return c;
 }

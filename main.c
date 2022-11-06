@@ -11,7 +11,13 @@ int main(){
     while (!file->_feof){
         int readChars = so_fgetc(file);
         char litera = readChars;
-        printf("%c", litera);
+        if (litera != SO_EOF){
+            printf("%c", litera);
+        }
+        else{
+            break;
+        }
+        
     }
     printf("\n");
 
@@ -69,19 +75,25 @@ int main(){
         exit(0);
     }
     
+    so_fflush(file);
+
     SO_FILE* file1 = so_fopen("file.txt", "r+");
     char c[] = "Nice!"; 
-    so_fread(file->_buffer, strlen(c)+1, 1, file1);
+    so_fread(file->_buffer, 0, 1, file1);
     printf("so_fread: %s\n", file1->_buffer);
 
+    
     int var = so_fclose(file1);
     if(var==0){
         printf("so_fclose(file1): success!\n");
     }
 
-    SO_FILE* file2 = so_fopen("file.txt", "w");
-    char text[] = "!2";
-    int b = so_fwrite(text, 1, strlen(text), file2);
+    SO_FILE* file2 = so_fopen("file.txt", "a");
+    printf("file2 open\n");
+    int chr = 65;
+    so_fputc(chr, file2);
+
+    so_fwrite;
 
     return 0;
 }
