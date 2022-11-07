@@ -8,22 +8,26 @@ size_t so_fread(void *ptr, size_t size, size_t nmemb, SO_FILE *stream){
         return SO_EOF;
     }
 
-    unsigned char* buffer = (unsigned char*)malloc(size*sizeof(unsigned char));
 
     if(stream->_feof == 1){
         return SO_EOF;
     }
 
     int count = 0;
-    for(int i = 0; i<nmemb || stream->_feof == 1; i++){
-        buffer[i] = so_fgetc(stream);
-        if(buffer[i]==255){
-            return SO_EOF;
+    
+    for(int i = 0; i<nmemb; i++){
+        
+        int character = so_fgetc(stream);
+        
+        if(character== SO_EOF){
+            break;
         }
+
+        *(char*)(ptr) = character;
+        (char*)(ptr)++;
         count++;
     }
 
-    ptr = buffer;
     return count;
 
 }

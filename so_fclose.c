@@ -4,11 +4,12 @@
 #define _DEBUG_
 
 int so_fclose(SO_FILE* stream){
-    so_fflush(stream);
-    // stream->_buffer_base = NULL; 
-    // stream->_read_ptr = NULL;
-    // stream->_write_ptr = NULL;
-    // stream->_buffer_end = NULL;
+
+    if(stream!=NULL)
+    {
+        int check = so_fflush(stream);
+        return close(stream->_fHandle);
+    }
     stream->_feof = SO_FALSE;
     stream->_ferror = SO_FALSE;
     stream->_errno = SO_FALSE;
@@ -17,13 +18,16 @@ int so_fclose(SO_FILE* stream){
 
     #if defined(__linux__)
 	int cl = close(stream->_fHandle);
+    
+    free(stream);
+    stream = NULL;
 
     #elif defined(_WIN32)
 	//todo
     #endif
 
  
-	stream = NULL;
+	//stream = NULL;
 
 	return cl; //success
 }

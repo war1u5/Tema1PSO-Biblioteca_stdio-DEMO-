@@ -8,11 +8,18 @@ size_t so_fwrite(const void* ptr, size_t size, size_t nmemb, SO_FILE* stream) {
     unsigned char chr;                              //the char itself
     unsigned int chars_actually_written = 0;        //cate caract am scris de fapt
     unsigned char *source;
-    number_of_chars = (unsigned int)(size*nmemb);
+   
+    number_of_chars = nmemb;
     source = (unsigned char*) ptr;
 
     for(int i = 0; i<number_of_chars; i++){
-        chr = so_fputc(*(char*)(ptr+i), stream);
+      
+        if(source[i] == '\0')
+        {
+            break;
+        }
+      
+        chr = so_fputc(source[i], stream);
 
         if(chr == SO_EOF){
             return chars_actually_written;

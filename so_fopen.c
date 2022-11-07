@@ -65,7 +65,7 @@ SO_FILE* so_fopen(const char* pathname, const char* mode) {
 
 
 	#if defined(__linux__)
-		file->_fHandle = open(pathname, flags, 0644);
+		file->_fHandle = open(pathname, flags, 0666);
 	
 	#elif defined(_WIN32)
 	//todo

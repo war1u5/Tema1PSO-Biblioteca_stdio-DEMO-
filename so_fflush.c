@@ -7,8 +7,8 @@
 
 int so_fflush(SO_FILE* stream){
     //fflush are sens doar pentru file-urile care au fost deschise pt citire
-    if(stream==NULL || stream->_canWrite==SO_FALSE){
-        printf("so_fflush: error!\n");
+    if(stream->_canWrite==SO_FALSE){
+        printf("so_fflush: error! file nu este deschis pt scriere\n");
         return SO_EOF;
     }
 
@@ -18,10 +18,21 @@ int so_fflush(SO_FILE* stream){
 
     if(stream->_canWrite==SO_TRUE && stream->_update == SO_FALSE){
         int wrBytes = write(stream->_fHandle, stream->_buffer, stream->writeChars);
-        if(wrBytes==0){
-            return 0;
+        
+        if(wrBytes < 0){
+            return SO_EOF;
         }
     }
+
+    if(stream->_canWrite==SO_TRUE && stream->_update == SO_TRUE){
+        int wrBytes = write(stream->_fHandle, stream->_buffer, stream->writeChars);
+        
+        if(wrBytes < 0){
+            return SO_EOF;
+        }
+    }
+
+    return 0;
 }
 
 #elif defined(_WIN32)

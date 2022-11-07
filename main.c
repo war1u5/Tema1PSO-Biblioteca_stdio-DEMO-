@@ -4,48 +4,47 @@
 #include "so_stdio.h"
 #include "so_handle.h"
 
-int main(){
-//------------------test so_fopen()-------------------
-    SO_FILE* file = so_fopen("file.txt", "r+");
+int main()
+{
+    //------------------test so_fopen()-------------------
+    SO_FILE *file = so_fopen("file.txt", "r");
     printf("so_fgetc in while: ");
-    while (!file->_feof){
-        int readChars = so_fgetc(file);
+
+    int readChars = so_fgetc(file);
+    while (readChars != SO_EOF)
+    {
+
         char litera = readChars;
-        if (litera != SO_EOF){
+        if (litera != SO_EOF)
+        {
             printf("%c", litera);
         }
-        else{
+        else
+        {
             break;
         }
-        
+        readChars = so_fgetc(file);
     }
     printf("\n");
 
-    int readChars = so_fgetc(file);
-    if(readChars == SO_EOF){
-        printf("so_fgetc: fisier deschis pt scriere\n");
-    }
-    else if(file->_feof == 1){
-        printf("feof: s-a ajuns la finalul fisierului!\n");
-    }
-    else{
-        printf("so_fgetc: caracter: %c\n", (char)readChars);
-    }
-
-//------------------test so_fileno()-------------------
+    //------------------test so_fileno()-------------------
     int file_desc = so_fileno(file);
-    if(file_desc==-1){
+    if (file_desc == -1)
+    {
         printf("so_fileno: invalid stream!\n");
     }
-    else{
+    else
+    {
         printf("so_fileno: success!\nfile descriptor: %d\n", file_desc);
     }
 
-    if (file == NULL) {
-		printf("so_fopen failed\n");
-		exit(0);
-	}
-    else{
+    if (file == NULL)
+    {
+        printf("so_fopen failed\n");
+        exit(0);
+    }
+    else
+    {
         printf("so_fopen: success!\n");
         int feof = so_feof(file);
         printf("so_feof: feof: %d\n", feof);
@@ -53,49 +52,75 @@ int main(){
         printf("so_ftell: pos cursor: %d\n", pos);
     }
 
-//------------------test so_fclose()-------------------
+    //------------------test so_fclose()-------------------
     int a = so_fclose(file);
-    if(file->_feof == 1){
-        printf("feof: s-a ajuns la finalul fisierului!\n");
-    }
-    printf("so_fclose nr1\n");
-    if(!(a<0)){
+
+    if (!(a < 0))
+    {
         printf("so_fclose nr1: success!\n");
     }
+    else
+    {
+        printf("eroare\n");
+    }
+
     int check = so_fclose(file);
-    if (check < 0) {
-		printf("so_fclose: file already closed\n");
-		//exit(0);
-	}
-    else if (check == 0){
+
+    if (check < 0)
+    {
+        printf("so_fclose: file already closed\n");
+        // exit(0);
+    }
+    else if (check == 0)
+    {
         printf("so_fclose: success!\n");
     }
-    else{
+    else
+    {
         printf("so_fclose: failed!\n");
         exit(0);
     }
-    
+
     so_fflush(file);
 
-    SO_FILE* file1 = so_fopen("file.txt", "r+");
-    char c[] = "Nice!"; 
-    so_fread(file->_buffer, 0, 1, file1);
-    printf("so_fread: %s\n", file1->_buffer);
+    SO_FILE *file1 = so_fopen("file.txt", "r+");
 
-    
+    char buff[5];
+    int nr = so_fread(buff, 1, 4, file1);
+
+    while (nr != 0)
+    {
+
+        if(nr == SO_EOF)
+        {
+            break;
+        }
+        printf("so_fread: %s\n", buff);
+        nr = so_fread(buff, 1, 4, file1);
+
+    }
+
     int var = so_fclose(file1);
-    if(var==0){
+    if (var == 0)
+    {
         printf("so_fclose(file1): success!\n");
     }
 
-    SO_FILE* file2 = so_fopen("file.txt", "a");
+    SO_FILE *file2 = so_fopen("file1.txt", "w");
     printf("file2 open\n");
-    int chr = 65;
-    so_fputc(chr, file2);
-    
+    int chr = 50;
+    //so_fputc(chr, file2);
+
+    char buffWrite[] = "buna seara";
+    int writeChar = so_fwrite(buffWrite, 1, sizeof(buffWrite), file2);
+
     int close = so_fclose(file2);
 
-    so_fwrite;
+
+    // SO_FILE *file3 = so_fopen("file.txt", "w+");
+    // so_fread(file3->_buffer, 0, 1, file3);
+    // printf("so_fread: %s\n", file3->_buffer);
+    // int close2 = so_fclose(file3);
 
     return 0;
 }

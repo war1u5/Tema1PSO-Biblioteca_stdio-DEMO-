@@ -20,7 +20,7 @@
 #define SO_FALSE 0
 
 //definire buffer
-#define SO_BUFFER_SIZE 4096
+#define SO_BUFFER_SIZE 4
 
 //handle-ul fisierului pe care dorim sa-l deschidem are o structura anume
 //see README.md section Structura handle
@@ -47,7 +47,7 @@ struct _so_file {
 
     unsigned int _file_pointer_pos;
     unsigned int _buffer_pointer_pos;
-    unsigned char _buffer[SO_BUFFER_SIZE];
     int readChars;
     int writeChars;
+    unsigned char _buffer[SO_BUFFER_SIZE];
 };
